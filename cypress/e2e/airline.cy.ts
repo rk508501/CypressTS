@@ -9,3 +9,17 @@ it("Verify the flight statuses", () => {
      })
     })
 });
+
+
+it.only("Atlanta airport", () => {
+  cy.visit("https://apps.atl.com/Passenger/FlightInfo/Search.aspx?FIDSType=&SearchAirline=&SearchFlight=&SearchCity=")
+    
+  cy.get('table > tbody > tr ')
+    .map("innerText")
+    .then(flights => {
+      //get the index of 'Amsterdam' in the array
+      const index = flights.findIndex((flight: string) => flight.includes('Amsterdam'))
+      cy.log('Index of Amsterdam: ' + index)
+      cy.log(JSON.stringify(flights[index]))
+    })
+})
